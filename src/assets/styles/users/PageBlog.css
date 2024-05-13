@@ -1,0 +1,16 @@
+:root{
+    --main-color: #ff5100;
+}
+.bg-blog{
+    padding: 150px 0px;
+    background-color: #ccc;
+}
+.bg-blog .list-blog{
+    padding: 50px 0px;
+}
+.bg-blog .box-img-blog{
+    padding: 0px;
+}
+.bg-blog .box-blog{
+    background-color: var(--main-color);
+}

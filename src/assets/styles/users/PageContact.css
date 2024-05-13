@@ -1,0 +1,31 @@
+:root{
+    --main-color: #ff5100;
+}
+.bg-box-contact{
+    padding: 150px 0px;
+}
+.list-box-contact{
+    background-color: var(--main-color);
+    padding: 40px 40px;
+    border-radius: 20px;
+}
+.box-contact{
+    background-color: #fff;
+    padding: 10px 10px;
+    border-radius: 20px;
+    border: 5px solid var(--main-color);
+}
+.icon-mapmarket{
+    padding: 20px;
+    background-color: var(--main-color);
+}
+.title-box-contact{
+    padding: 0px 20px;
+}
+.bg-form-contact{
+    padding: 100px 0px;
+    background-color:  #ccc;
+}
+.bg-form-contact .btn{
+    background-color: var(--main-color);
+}

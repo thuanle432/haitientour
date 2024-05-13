@@ -1,0 +1,39 @@
+:root{
+    --main-color: #ff5100;
+}
+.bg-aboutus{
+    background-color: #ccc;
+}
+.bg-aboutus .title-about{
+    padding: 50px 0px 15px 0px;
+    font-size: 40px;
+}
+.bg-aboutus .title-introduce{
+    font-size: 35px;
+    padding: 15px 0px;
+}
+.bg-aboutus .title-main{
+    font-size: 20px;
+    padding: 15px 0px;
+}
+.bg-aboutus .box-img-about{
+    padding: 50px 0px;
+}
+.bg-aboutus .box-img-about-2{
+    padding: 150px 0px 50px 0px;
+}
+.bg-aboutus .box-img-about-3{
+    padding: 50px 0px;
+}
+.bg-list-param{
+    padding: 150px 0px;
+}
+.bg-list-param .icon-list-param{
+    padding: 50px;
+    font-size: 30px;
+}
+.bg-list-param .box-param{
+    background-color: var(--main-color);
+    border: 5px solid #fff;
+    border-radius: 30px;
+}

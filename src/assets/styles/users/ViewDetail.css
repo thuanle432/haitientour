@@ -1,0 +1,29 @@
+.tab-container {
+    font-family: Arial, sans-serif;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+    position: relative;
+    bottom: -2px;  /* Align with border */
+}
+
+.tab.active {
+    border-bottom: 3px solid orange;
+    font-weight: bold;
+}
+
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+}

@@ -1,0 +1,11 @@
+:root{
+    --main-color: #ff5100;
+}
+.icon-bars{
+    color: var(--main-color);
+}
+.item{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0px 20px;
+}

@@ -1,0 +1,33 @@
+.bg-tour-sale{
+    background-image: url("../images/imgSlide.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+.bg-tour-sale .image-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none; 
+}
+.bg-tour-sale .title-tour-sale{
+    z-index: 2;
+}
+.bg-blog-food{
+    padding: 100px 0px;
+}
+
+.bg-blog-food .box-blog-food{
+    height: 250px;
+    padding: 10px;
+}
+.bg-blog-food .box-blog-food img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}

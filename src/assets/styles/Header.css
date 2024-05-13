@@ -1,0 +1,40 @@
+:root{
+    --main-color: #ff5100;
+}
+.header{
+    padding: 5px 0px;
+}
+.icon-envelope,
+.icon-phone{
+    padding: 15px 15px;
+    font-size: 30px;
+    color: var(--main-color);
+}
+.header .title-mail,
+.number-phone{
+    font-size: 20px;
+    padding: 15px 0px 0px 10px;
+}
+.box-login{
+    position: relative;
+}
+.icon-user{
+    padding: 15px 15px;
+    font-size: 30px;
+    color: var(--main-color);
+    position: absolute;
+    right: 0px;
+}
+.btn-icon-name{
+    padding: 15px 15px;
+    font-size: 30px;
+    color: var(--main-color);
+    position: absolute;
+    top: -7px;
+    right: 0px;
+}
+@media only screen and (max-width: 1200px){
+    .header{
+        height: 70px;
+    }
+}
