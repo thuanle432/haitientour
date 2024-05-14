@@ -23,17 +23,17 @@ const Routers = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={ <Dashboard />} />
-                    <Route path="tour" element={ <PageTour />} />
-                    <Route path="contact" element={ <PageContact />} />
-                    <Route path="about" element={ <PageAboutUs />} />
-                    <Route path="blog" element={ <PageBlog />} />
-                    <Route path="signin" element={ <Sigin />} />
+                    <Route path="/tour" element={ <PageTour />} />
+                    <Route path="/contact" element={ <PageContact />} />
+                    <Route path="/about" element={ <PageAboutUs />} />
+                    <Route path="/blog" element={ <PageBlog />} />
+                    <Route path="/signin" element={ <Sigin />} />
 
                     <Route path="/admin" element={user?.role === 1 ? <DashboardAdmin /> : <Navigate to="/signin" /> } />
-                    <Route path="admin/tour" element={ <Tour />} />
-                    <Route path="admin/tourdetail" element={ <TourDetail />} />
-                    <Route path="admin/noprocess" element={ <NoProcess />} />
-                    <Route path="admin/successprocess" element={ <Successprocess /> } />
+                    <Route path="/admin/tour" element={ <Tour />} />
+                    <Route path="/admin/tourdetail" element={ <TourDetail />} />
+                    <Route path="/admin/noprocess" element={ <NoProcess />} />
+                    <Route path="/admin/successprocess" element={ <Successprocess /> } />
 
                     <Route path="/viewdetail/:id_tour" element={<ViewDetail />} />
                     <Route path="/bookingprocess/:userId" element={<BooKingProcess />} />
