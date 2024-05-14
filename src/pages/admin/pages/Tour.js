@@ -14,7 +14,7 @@ const Tour = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/tours/list');
+                const response = await axios.get('https://server-nodejs-api.onrender.com/api/tours/list');
                 setTours(response.data);
             } catch (error) {
                 console.error('Nạp dữ liệu thất bại: ', error);
@@ -35,7 +35,7 @@ const Tour = () => {
     const handleDelete = async (tourId) => {
         if (window.confirm("Bạn có chắc chắn muốn xoá tour này không?")) {
             try {
-                const response = await axios.delete(`http://localhost:3001/api/tours/delete/${tourId}`);
+                const response = await axios.delete(`https://server-nodejs-api.onrender.com/api/tours/delete/${tourId}`);
                 if (response.status === 200) {
                     alert("Tour đã được xoá.");
                     setTours(tours.filter(tour => tour.id_tour !== tourId));
@@ -88,7 +88,7 @@ const ListTour = ({ tours, onEdit, onDelete }) => {
                         <tr key={tour.id_tour}>
                             <th scope="row">{index + 1}</th>
                             <td>{tour.name_tour}</td>
-                            <td><img src={`http://localhost:3001/${tour.image_tour}`} alt={tour.name_tour} style={{ width: '100px' }} /></td>
+                            <td><img src={`https://server-nodejs-api.onrender.com/${tour.image_tour}`} alt={tour.name_tour} style={{ width: '100px' }} /></td>
                             <td>{tour.day}</td>
                             <td>{tour.person}</td>
                             <td>{tour.price}</td>
@@ -119,7 +119,7 @@ const AddTour = ({ onCloseForm, }) => {
     useEffect(() => {
         const fetchTourDetails = async () => {
             try {
-                const { data } = await axios.get('http://localhost:3001/api/tours/listdetail');
+                const { data } = await axios.get('https://server-nodejs-api.onrender.com/api/tours/listdetail');
                 setTourDetails(data);
             } catch (error) {
                 console.error('Lỗi tìm nạp tour:', error);
@@ -156,7 +156,7 @@ const AddTour = ({ onCloseForm, }) => {
         formDataToSend.append('tour_id', formData.tour_id);
 
         try {
-            const response = await axios.post('http://localhost:3001/api/tours/add', formDataToSend, {
+            const response = await axios.post('https://server-nodejs-api.onrender.com/api/tours/add', formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 

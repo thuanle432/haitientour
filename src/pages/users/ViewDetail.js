@@ -27,7 +27,7 @@ const ViewDetail = () => {
         const fetchTourDetails = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://localhost:3001/api/tours/detail/${id_tour}`);
+                const response = await axios.get(`https://server-nodejs-api.onrender.com/api/tours/detail/${id_tour}`);
                 setTourDetails(response.data);
             } catch (err) {
                 console.error('Failed to fetch tour details:', err);

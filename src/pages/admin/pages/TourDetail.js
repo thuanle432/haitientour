@@ -12,7 +12,7 @@ const TourDetail = () => {
     useEffect(() => {
         const fetchTourDetails = async () => {
             try {
-                const { data } = await axios.get('http://localhost:3001/api/tours/listdetail');
+                const { data } = await axios.get('https://server-nodejs-api.onrender.com/api/tours/listdetail');
                 setTourDetails(data);
             } catch (error) {
                 console.error('Error fetching tour details:', error);
@@ -34,7 +34,7 @@ const TourDetail = () => {
     const handleDelete = async (detailId) => {
         if (window.confirm("Bạn có chắc chắn muốn xoá chi tiết tour này không?")) {
             try {
-                await axios.delete(`http://localhost:3001/api/tours/deletedetail/${detailId}`);
+                await axios.delete(`https://server-nodejs-api.onrender.com/api/tours/deletedetail/${detailId}`);
                 setTourDetails(prevDetails => prevDetails.filter(detail => detail.tour_id !== detailId));
                 alert("Chi tiết tour đã được xoá.");
             } catch (error) {
