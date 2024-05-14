@@ -7,10 +7,10 @@ const Successprocess = () => {
     useEffect(() => {
         const fetchBooking = async() => {
             try{
-                const response = await axios.get('http://localhost:3001/api/users/listsuccessbooking');
+                const response = await axios.get('https://server-nodejs-api.onrender.com/api/users/listsuccessbooking');
                 setBooking(response.data);
             } catch (error){
-                console.error("Faild to get list booking")
+                console.error("Lỗi khi lấy dữ liệu")
             }
         }
         fetchBooking();
@@ -49,7 +49,7 @@ const Successprocess = () => {
                                         <td>{booking.price}</td>
                                         <td>{booking.email}</td>
                                         <td>{booking.phone_number}</td>
-                                        <td>{booking.date}</td>
+                                        <td>Ngày: {new Date (booking.date).toLocaleDateString('vi-VN')}</td>
                                     </tr>
                                 ))}
                                 </tbody>

@@ -23,7 +23,7 @@ const Login = ({ onSwitchForm }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/api/users/login', formData);
+            const response = await axios.post('https://server-nodejs-api.onrender.com/api/users/login', formData);
             const { userId, id_role } = response.data;
 
         if (id_role === 1) {
@@ -45,7 +45,7 @@ const Login = ({ onSwitchForm }) => {
           }
         }
       } catch (error) {
-        setMessage({ text: error.response?.data?.message || 'Login failed.', type: 'danger' });
+        setMessage({ text: error.response?.data?.message || 'Đăng nhập thất bại.', type: 'danger' });
       }
     };
   

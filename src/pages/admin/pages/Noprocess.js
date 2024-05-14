@@ -8,7 +8,7 @@ const NoProcess = () => {
     useEffect(() => {
         const fetchBooking = async() => {
             try{
-                const response = await axios.get("http://localhost:3001/api/users/listbookingstatus");
+                const response = await axios.get("https://server-nodejs-api.onrender.com/api/users/listbookingstatus");
                 setBooking(response.data);
             } catch (error) {
                 console.error('Failed to fetch bookings:', error);
@@ -19,7 +19,7 @@ const NoProcess = () => {
 
     const successBooking = async (id_account) => {
         try{
-            const response = await axios.patch(`http://localhost:3001/api/users/successbooking/${id_account}`,{
+            const response = await axios.patch(`https://server-nodejs-api.onrender.com/api/users/successbooking/${id_account}`,{
                 status: 3
             });
 

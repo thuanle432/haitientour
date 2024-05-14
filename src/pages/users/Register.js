@@ -23,13 +23,13 @@ const Register = ({ onSwitchForm }) => {
     if (name === 'username') {
       let errorMesage = '';
       if (value.length < 6) {
-        errorMesage = 'Username must be 6 characters or more.';
+        errorMesage = 'Tên người dùng phải có 6 ký tự trở lên.';
       }
       if (/[\s\W]/.test(value)) {
-        errorMesage = 'Username must not contain spaces or special characters.';
+        errorMesage = 'Tên người dùng không được chứa cách hoặc ký tự đặc biêt.';
       }
       if (!/\d/.test(value)) {
-        errorMesage = 'Username must include a number.';
+        errorMesage = 'Tên người dùng phải có 1 số.';
       }
       setErrors(prevErrors => ({ ...prevErrors, [name]: errorMesage }));
     }
@@ -37,20 +37,20 @@ const Register = ({ onSwitchForm }) => {
     if (name === 'password') {
       let errorMesage = '';
       if (value.length < 8) {
-        errorMesage = 'Password must be at least 8 characters long.';
+        errorMesage = 'Mật khẩu phải dài ít nhất 8 ký tự.';
       }
       if (/\s/.test(value)) {
-        errorMesage = 'Password must not contain spaces.';
+        errorMesage = 'Mật khâu không được chứa dấu cách.';
       }
       if (!/[A-Z]/.test(value)) {
-        errorMesage = 'Password must include one uppercase letter.';
+        errorMesage = 'Mật khẩu phải có 1 chữ viết hoa.';
       }
       setErrors(prevErrors => ({ ...prevErrors, [name]: errorMesage }));
     }
 
     if (name === 'confirmPassword') {
       if (value !== formData.password) {
-        setErrors(prevErrors => ({ ...prevErrors, [name]: 'Confirm Password must match Password.' }));
+        setErrors(prevErrors => ({ ...prevErrors, [name]: 'Mật khẩu không trùng nhau' }));
       } else {
         setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
       }
@@ -62,12 +62,12 @@ const Register = ({ onSwitchForm }) => {
     setMessage(null);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/users/register', {
+      const response = await axios.post('https://server-nodejs-api.onrender.com/api/users/register', {
         username: formData.username,
         password: formData.password,
       });
 
-      setMessage({ text: response.data.message, type: 'success' });
+      setMessage({ text: response.data.message, type: 'thành công' });
       setFormData({
         username: '',
         password: '',
@@ -75,9 +75,9 @@ const Register = ({ onSwitchForm }) => {
       });
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        setErrors(prevErrors => ({ ...prevErrors, username: 'Username already exists. Please choose another one.' }));
+        setErrors(prevErrors => ({ ...prevErrors, username: 'Tên người dùng đã có người dùng vui lòng chọn tên khác' }));
       } else {
-        setMessage({ text: error.response?.data?.message || 'Registration failed.', type: 'danger' });
+        setMessage({ text: error.response?.data?.message || 'Đăng ký thất bại.', type: 'danger' });
       }
     }
   };

@@ -17,7 +17,7 @@ const Tour = () => {
                 const response = await axios.get('http://localhost:3001/api/tours/list');
                 setTours(response.data);
             } catch (error) {
-                console.error('Error fetching data: ', error);
+                console.error('Nạp dữ liệu thất bại: ', error);
             }
         };
         fetchData();
@@ -41,7 +41,7 @@ const Tour = () => {
                     setTours(tours.filter(tour => tour.id_tour !== tourId));
                 }
             } catch (error) {
-                console.error('Error deleting tour:', error);
+                console.error('Lỗi xoá dũ liệu:', error);
                 alert("Lỗi khi xoá tour.");
             }
         }
@@ -122,8 +122,8 @@ const AddTour = ({ onCloseForm, }) => {
                 const { data } = await axios.get('http://localhost:3001/api/tours/listdetail');
                 setTourDetails(data);
             } catch (error) {
-                console.error('Error fetching tour details:', error);
-                alert('Failed to fetch tour details');
+                console.error('Lỗi tìm nạp tour:', error);
+                alert('Lỗi tìm nạp tour');
             }
         };
         fetchTourDetails();
@@ -142,7 +142,7 @@ const AddTour = ({ onCloseForm, }) => {
         e.preventDefault();
 
         if (formData.day <= 0 || formData.person <= 0 || formData.price <= 0 || formData.quantity <= 0) {
-            alert("All fields are required and must be valid numbers where applicable.");
+            alert("Tất cả các trường là bắt buộc và phải là số hợp lệ nếu có.");
             return;
         }
 
@@ -161,14 +161,14 @@ const AddTour = ({ onCloseForm, }) => {
             });
 
             if (response.status === 200) {
-                alert("Tour added successfully.");
+                alert("Thêm tour thành công.");
                 onCloseForm();
             } else {
-                throw new Error('Failed to add tour');
+                throw new Error('Thêm tour thất bại');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert("Failed to add the tour, please try again.");
+            alert("Thêm tour thất bại vui lòng thử lại.");
         }
     };
     return (
@@ -238,10 +238,10 @@ const EditTour = ({ editingTour, onCloseForm }) => {
     useEffect(() => {
         const fetchTourDetails = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/tours/listdetail');
+                const response = await axios.get('https://server-nodejs-api.onrender.com/api/tours/listdetail');
                 setTourDetails(response.data);
             } catch (error) {
-                console.error('Error fetching tour details:', error);
+                console.error('Nạp dữ liệu lõi:', error);
             }
         };
 
@@ -270,18 +270,18 @@ const EditTour = ({ editingTour, onCloseForm }) => {
         }
     
         try {
-            const response = await axios.put(`http://localhost:3001/api/tours/update/${editingTour.id_tour}`, formDataToSend, {
+            const response = await axios.put(`https://server-nodejs-api.onrender.com/api/tours/update/${editingTour.id_tour}`, formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             if (response.status === 200) {
-                alert("Tour updated successfully."); 
+                alert("Sửa tour thành công."); 
                 onCloseForm();
             } else {
-                throw new Error(`Failed to update the tour: ${response.statusText}`);
+                throw new Error(`Sửa tour thất bại: ${response.statusText}`);
             }
         } catch (error) {
-            console.error('Failed to update:', error);
-            alert(`Failed to update the tour, please check the data and try again. Error: ${error.response?.data?.message || error.message}`);
+            console.error('Sửa tour thất bại', error);
+            alert(`Sửa tour thất bại, vui lòng kiểm tra lại. Error: ${error.response?.data?.message || error.message}`);
         }
     };
     

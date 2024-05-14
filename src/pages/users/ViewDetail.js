@@ -6,8 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '../../services/UserContext';
 
 const ViewDetail = () => {
@@ -19,10 +18,10 @@ const ViewDetail = () => {
     const [error, setError] = useState(null);
     const [showForm, setShowForm] = useState(false)
     const today = new Date().toISOString().slice(0, 10);
-
-    const toggleForm = () => setShowForm(!showForm);
     const [isAvailable, setIsAvailable] = useState(true);
     const [dateSelected, setDateSelected] = useState('');
+
+    const toggleForm = () => setShowForm(!showForm);
 
     useEffect(() => {
         const fetchTourDetails = async () => {
@@ -42,71 +41,69 @@ const ViewDetail = () => {
             fetchTourDetails();
         }
     }, [id_tour]);
-    useEffect(() => {
-        const fetchTourDetails = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get(`http://localhost:3001/api/tours/detail/${id_tour}`);
-                setTourDetails(response.data);
-            } catch (err) {
-                console.error('Failed to fetch tour details:', err);
-                setError('Failed to load tour details. Please try again later.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchTourDetails();
-    }, [id_tour]);
 
     const handleDateChange = (event) => {
         const selectedDate = event.target.value;
         setDateSelected(selectedDate);
         checkAvailability(selectedDate);
     };
-    
+
     const checkAvailability = async (selectedDate) => {
         try {
             const formattedDate = selectedDate.split('T')[0];
-            const response = await axios.get(`http://localhost:3001/api/users/checkquantity/${id_tour}/${formattedDate}`);
-    
+            const response = await axios.get(`https://server-nodejs-api.onrender.com/api/users/checkquantity/${id_tour}/${formattedDate}`);
             setIsAvailable(response.data.isAvailable);
-            if (!response.data.isAvailable) {
-            }
         } catch (error) {
             console.error('Failed to check availability:', error);
             setIsAvailable(false);
             alert('An error occurred while checking the date. Please try again.');
         }
     };
-    
+
+    const checkExistingBooking = async (userId) => {
+        try {
+            const response = await axios.get(`https://server-nodejs-api.onrender.com/api/users/checkexisting/${userId}`);
+            return response.data.exists;
+        } catch (error) {
+            console.error('Failed to check existing bookings:', error);
+            return false;
+        }
+    };
+
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        if (!isAvailable) {
-            alert('Tour ngày này đã hết vui lòng đặt lại.');
-            return;
-        }
 
         if (!user || !user.id) {
             alert('Bạn phải đăng nhập để đặt phòng.');
             return;
         }
-        
+
+        const existingBooking = await checkExistingBooking(user.id);
+        if (existingBooking) {
+            alert('Bạn đã có tour đang hoạt động không thể đặt tiếp được.');
+            return;
+        }
+
+        if (!isAvailable) {
+            alert('Tour ngày đã đã hết, vui lòng đặt ngày.');
+            return;
+        }
+
         const people = parseInt(event.target.peopleInput.value, 10);
         if (people > tourDetails.person) {
             alert(`Vượt quá chỉ tiêu số lượng người ban đầu ${tourDetails.person}.`);
             return;
         }
-    
+
         const formData = {
             name: event.target.nameInput.value,
             email: event.target.emailInput.value,
             phoneNumber: event.target.phoneInput.value,
             people,
             date: event.target.dateInput.value,
-            status: 1 
+            status: 1
         };
-    
+
         const dataToSend = {
             id_account: user.id,
             formData,
@@ -117,7 +114,7 @@ const ViewDetail = () => {
             includes: tourDetails.includes,
             excludes: tourDetails.excludes
         };
-    
+
         try {
             const response = await axios.post('http://localhost:3001/api/users/savebooking', dataToSend);
             console.log('Lưu thông tin thành công', response.data);
@@ -133,14 +130,14 @@ const ViewDetail = () => {
     if (error) return <p>{error}</p>;
     if (!tourDetails) return <p>No tour details available.</p>;
 
-    return(
+    return (
         <>
             <Header />
             <NavPage />
             <section className="container-xxl py-5">
                 <div className="row">
                     <div className="col-sm-12 col-lg-6">
-                    <img className="w-100" src={`http://localhost:3001/${tourDetails.image_tour}`} alt={tourDetails.name_tour} />
+                        <img className="w-100" src={`http://localhost:3001/${tourDetails.image_tour}`} alt={tourDetails.name_tour} />
                     </div>
                     <div className="col-sm-12 col-lg-6">
                         <h2 className="py-3">{tourDetails.name_tour}</h2>
@@ -179,75 +176,17 @@ const ViewDetail = () => {
                                         <input type="date" className="form-control" id="dateInput" min={today} value={dateSelected} onChange={handleDateChange} required />
                                         {!isAvailable && <p className="text-danger">Ngày này đã có người chọn vui lòng chọn ngày khác</p>}
                                     </div>
-                                    <button type="submit" class="btn btn-primary" >Submit</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="button" class="btn btn-secondary" onClick={toggleForm}>Close</button>
                                 </form>
                             </div>
-                        
                         )}
                     </div>
                 </div>
-            </section>
-            <section className="container-xxl py-5">
-                <SimpleTabs
-                    itinerary = {tourDetails.itinerary}
-                    includes = {tourDetails.includes}
-                    excludes = {tourDetails.excludes}
-                />
             </section>
             <Footer />
         </>
     )
 }
-
-const SimpleTabs = ({itinerary, includes, excludes}) => {
-    const [activeTab, setActiveTab] = useState('itinerary');
-
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
-    };
-
-    return (
-        <div className="tab-container">
-            <div className="tabs">
-                <button 
-                    onClick={() => handleTabClick('itinerary')}
-                    className={`tab ${activeTab === 'itinerary' ? 'active' : ''}`}
-                >
-                    Lịch trình
-                </button>
-                <button 
-                    onClick={() => handleTabClick('includes')}
-                    className={`tab ${activeTab === 'includes' ? 'active' : ''}`}
-                >
-                    Bao gồm
-                </button>
-                <button 
-                    onClick={() => handleTabClick('excludes')}
-                    className={`tab ${activeTab === 'excludes' ? 'active' : ''}`}
-                >
-                    Không bao gồm
-                </button>
-            </div>
-            <div className="tab-content">
-                {activeTab === 'itinerary' &&
-                    <div>
-                        {itinerary}
-                    </div>
-                }
-                {activeTab === 'includes' && 
-                    <div>
-                        {includes}
-                    </div>
-                }
-                {activeTab === 'excludes' &&
-                    <div>
-                        {excludes}
-                    </div>
-                }
-            </div>
-        </div>
-    );
-};
 
 export default ViewDetail;

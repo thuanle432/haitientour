@@ -24,12 +24,12 @@ const Sigin = () => {
                   <div className="card-body">
                     {isLoginForm ? (
                       <>
-                        <h1 className="card-title text-center py-5">Login</h1>
+                        <h1 className="card-title text-center py-5">Đăng nhập</h1>
                         <Login onSwitchForm={handleSwitchForm} />
                       </>
                     ) : (
                       <>
-                        <h1 className="card-title text-center py-5">Register</h1>
+                        <h1 className="card-title text-center py-5">Đăng ký</h1>
                         <Register onSwitchForm={handleSwitchForm} />
                       </>
                     )}

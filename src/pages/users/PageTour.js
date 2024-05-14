@@ -34,7 +34,7 @@ const Tour = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/tours/list');
+                const response = await axios.get('https://server-nodejs-api.onrender.com/api/tours/list');
                 setTours(response.data);
                 setFilteredTours(response.data);
             } catch (error) {
@@ -83,7 +83,7 @@ const Tour = () => {
                             {filteredTours.map((tour, index) => (
                                 <div key={tour.id_tour} className="row py-3 bg-white border rounded">
                                     <div className="col-md-3 mt-1">
-                                        <img className="img-fluid img-responsive rounded product-image" src={`http://localhost:3001/${tour.image_tour}`} alt={tour.name_tour} />
+                                        <img className="img-fluid img-responsive rounded product-image" src={`https://server-nodejs-api.onrender.com/${tour.image_tour}`} alt={tour.name_tour} />
                                     </div>
                                     <div className="col-md-6 mt-1">
                                         <h5>{tour.name_tour}</h5>

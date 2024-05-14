@@ -6,7 +6,7 @@ const DashboardAdmin = () => {
 
     const fetchTourCount = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/api/tours/count');
+            const response = await axios.get('https://server-nodejs-api.onrender.com/api/tours/count');
             console.log("Tour count received:", response.data);
             setTourCount(response.data.totalTours);
         } catch (error) {

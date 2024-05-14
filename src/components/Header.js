@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../services/UserContext';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
 import "../assets/styles/Header.css"
 const Header = () => {
     const { user } = useUser();
@@ -42,7 +43,9 @@ const Header = () => {
                                             <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <div className="offcanvas-body">
-                                            <Link to={`/bookingprocess/${user.id}`}>Quản lý đơn hàng</Link>
+                                            <Link className="nav-link active" to={`/bookingprocess/${user.id}`}>
+                                                <FontAwesomeIcon className="mx-3" icon={faCartArrowDown} />
+                                                Quản lý đơn hàng</Link>
                                             <hr />
                                             <div className="btn text-center d-flex" onClick={handleLogout}>
                                                 <FontAwesomeIcon className="pt-1 mx-2" icon={faSignOutAlt} />

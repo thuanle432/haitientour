@@ -116,8 +116,8 @@ const AddEditTourDetail = ({ detail, onCloseForm }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const endpoint = detail
-            ? `http://localhost:3001/api/tours/updatedetail/${detail.tour_id}` 
-            : 'http://localhost:3001/api/tours/adddetail';
+            ? `https://server-nodejs-api.onrender.com/api/tours/updatedetail/${detail.tour_id}` 
+            : 'https://server-nodejs-api.onrender.com/api/tours/adddetail';
         const method = detail ? 'put' : 'post';
 
         try {
@@ -127,14 +127,14 @@ const AddEditTourDetail = ({ detail, onCloseForm }) => {
                 data: formData
             });
             if (response.status === 200 || response.status === 201) {
-                alert(`Tour detail ${detail ? 'updated' : 'added'} successfully.`);
+                alert(`Chi tiết tour ${detail ? 'Sửa' : 'Thêm'} thành công.`);
                 onCloseForm(); 
             } else {
-                alert('Failed to save tour detail. Please try again.');
+                alert('Thêm chi tiết tour thất baiuj, vui lòng thử lại.');
             }
         } catch (error) {
-            console.error('Failed to submit tour detail:', error);
-            alert(`Error processing the tour detail: ${error.message}`);
+            console.error('Thêm chi tiết tour thất bại:', error);
+            alert(`Thêm chi tiết tour thất bại: ${error.message}`);
         }
     };
 
@@ -162,7 +162,7 @@ const AddEditTourDetail = ({ detail, onCloseForm }) => {
                     <textarea className="form-control" id="excludes" name="excludes" value={formData.excludes} onChange={handleInputChange} required />
                 </div>
                 <button type="submit" className="btn btn-primary">
-                    {detail ? 'Update' : 'Add'} Tour Detail
+                    {detail ? 'Sửa' : 'Thêm'} Tour Detail
                 </button>
             </form>
         </div>

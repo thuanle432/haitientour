@@ -14,7 +14,7 @@ const BookingProcess = () => {
         const fetchBookingDetails = async () => {
             if (user && user.id) {  
                 try {
-                    const response = await axios.get(`http://localhost:3001/api/users/inforbooking/${user.id}`);
+                    const response = await axios.get(`https://server-nodejs-api.onrender.com/api/users/inforbooking/${user.id}`);
                     setBookingDetails(response.data || []);
                 } catch (error) {
                     console.error('Failed to load bookings:', error);
@@ -27,7 +27,7 @@ const BookingProcess = () => {
 
     const confirmBooking = async (booking) => {
         try {
-            const response = await axios.patch(`http://localhost:3001/api/users/updatebooking/${booking.id_account}`, {
+            const response = await axios.patch(`https://server-nodejs-api.onrender.com/api/users/updatebooking/${booking.id_account}`, {
                 status: 2
             });
     
