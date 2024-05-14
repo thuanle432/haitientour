@@ -116,7 +116,7 @@ const ViewDetail = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3001/api/users/savebooking', dataToSend);
+            const response = await axios.post('https://server-nodejs-api.onrender.com/api/users/savebooking', dataToSend);
             console.log('Lưu thông tin thành công', response.data);
             alert('Đặt chỗ thành công');
             navigate(`/bookingprocess/${user.id}`);
@@ -137,7 +137,7 @@ const ViewDetail = () => {
             <section className="container-xxl py-5">
                 <div className="row">
                     <div className="col-sm-12 col-lg-6">
-                        <img className="w-100" src={`http://localhost:3001/${tourDetails.image_tour}`} alt={tourDetails.name_tour} />
+                        <img className="w-100" src={`https://server-nodejs-api.onrender.com/${tourDetails.image_tour}`} alt={tourDetails.name_tour} />
                     </div>
                     <div className="col-sm-12 col-lg-6">
                         <h2 className="py-3">{tourDetails.name_tour}</h2>
